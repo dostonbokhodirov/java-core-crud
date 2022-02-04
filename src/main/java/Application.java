@@ -11,6 +11,7 @@ import uz.jl.utils.Print;
 public class Application {
     private static final UserUI userUI = ApplicationContextHolder.getBean(UserUI.class);
     private static final AuthUserUI authUserUI = ApplicationContextHolder.getBean(AuthUserUI.class);
+    private static final DepartmentUI departmentUI = ApplicationContextHolder.getBean(DepartmentUI.class);
 
     public static void main(String[] args) {
         run();
@@ -41,6 +42,11 @@ public class Application {
             case "7" -> userUI.logout();
             case "8" -> userUI.blockUser();
             case "9" -> userUI.unBlockUser();
+            case "11" -> departmentUI.get();
+            case "22" -> departmentUI.getAll();
+            case "33" -> departmentUI.create();
+            case "44" -> departmentUI.update();
+
         }
         run();
     }

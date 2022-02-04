@@ -25,7 +25,7 @@ public class AuthUserService extends AbstractService<AuthUserRepository, UserVal
             SecurityHolder.setSessionUser(dto);
             return new ResponseEntity<>(new Data<>(dto));
         } catch (CustomSQLException e) {
-            throw new ApiRuntimeException(e.getFriendlyMessage(), HttpStatus.HTTP_400);
+            throw new ApiRuntimeException(e.getMessage());
         }
     }
 

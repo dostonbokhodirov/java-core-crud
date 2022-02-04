@@ -2,6 +2,7 @@ package ui;
 
 import dto.department.DepartmentCreateDto;
 import dto.department.DepartmentDto;
+import dto.department.DepartmentUpdateDto;
 import exceptions.ApiRuntimeException;
 import response.Data;
 import response.ResponseEntity;
@@ -39,19 +40,33 @@ public class DepartmentUI extends AbstractUI<DepartmentService> {
     }
 
     public void update() {
-
+        DepartmentUpdateDto dto = new DepartmentUpdateDto();
+        String id = Input.getStr("Enter department's id: ");
+        dto.setId(Long.parseLong(id));
+        if (Input.getStr("Do you wanna change name? YES/NO: ").toLowerCase().startsWith("y")) {
+            String name = Input.getStr("Name: ");
+            dto.setName(name);
+        }
+        if (Input.getStr("Do you wanna change phone number? YES/NO: ").toLowerCase().startsWith("y")) {
+            String phoneNumber = Input.getStr("Phone number: ");
+            dto.setPhoneNumber(phoneNumber);
+        }
+        try {
+            ResponseEntity<Data<Boolean>> response = service.update(dto);
+            showResponse(Color.GREEN, response.getBody());
+        } catch (ApiRuntimeException e) {
+            showResponse(e.getMessage());
+        }
     }
 
     public void delete() {
-
-    }
-
-    public void block() {
-
-    }
-
-    public void unblock() {
-
+        try {
+            String id = Input.getStr("Enter department id: ");
+            ResponseEntity<Data<Boolean>> response = service.delete(Long.parseLong(id));
+            showResponse(Color.GREEN, response.getBody());
+        } catch (ApiRuntimeException e) {
+            showResponse(e.getMessage());
+        }
     }
 
     public void get() {
@@ -67,6 +82,26 @@ public class DepartmentUI extends AbstractUI<DepartmentService> {
     public void getAll() {
         try {
             ResponseEntity<Data<List<DepartmentDto>>> response = service.getAll();
+            showResponse(Color.GREEN, response.getBody());
+        } catch (ApiRuntimeException e) {
+            showResponse(e.getMessage());
+        }
+    }
+
+    public void block() {
+        try {
+            String id = Input.getStr("Enter department id: ");
+            ResponseEntity<Data<Boolean>> response = service.block(Long.parseLong(id));
+            showResponse(Color.GREEN, response.getBody());
+        } catch (ApiRuntimeException e) {
+            showResponse(e.getMessage());
+        }
+    }
+
+    public void unblock() {
+        try {
+            String id = Input.getStr("Enter department id: ");
+            ResponseEntity<Data<Boolean>> response = service.unblock(Long.parseLong(id));
             showResponse(Color.GREEN, response.getBody());
         } catch (ApiRuntimeException e) {
             showResponse(e.getMessage());

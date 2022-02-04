@@ -20,12 +20,15 @@ public class DepartmentValidator extends GenericValidator<DepartmentCreateDto, D
     @Override
     public void validOnCreate(DepartmentCreateDto dto) {
         if (Objects.isNull(dto.getName()) || Objects.isNull(dto.getPhoneNumber())) {
-            throw new ApiRuntimeException("BAD_CREDENTIALS", HttpStatus.HTTP_400);
+            throw new ApiRuntimeException("BAD_CREDENTIALS");
         }
     }
 
     @Override
     public void validOnUpdate(DepartmentUpdateDto dto) {
+        if (Objects.isNull(dto.getId())) {
+            throw new ApiRuntimeException("BAD_CREDENTIALS");
+        }
 
     }
 }
