@@ -3,13 +3,13 @@ package repository;
 import dto.user.UserCreateDto;
 import dto.user.UserDto;
 import dto.user.UserUpdateDto;
-import enums.HttpStatus;
-import exceptions.CustomSQLException;
 import lombok.SneakyThrows;
 import repository.base.AbstractRepository;
 import repository.base.GenericCrudRepository;
 import repository.base.GenericRepository;
+import settings.Types;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -25,6 +25,8 @@ public class UserRepository extends AbstractRepository
 
     @Override
     public Void update(UserUpdateDto dto) {
+        prepareArguments(dto);
+        Boolean jsonData = (Boolean) callProcedure(property.get("user.update"), Types.BOOLEAN);
         return null;
     }
 
@@ -36,9 +38,9 @@ public class UserRepository extends AbstractRepository
     @SneakyThrows
     @Override
     public UserDto get(Long id) {
-            prepareArguments(id);
-            String jsonDATA = callProcedure(property.get("user.get"), String.class);
-            return gson.fromJson(jsonDATA, UserDto.class);
+        prepareArguments(id);
+        String jsonDATA = (String) callProcedure(property.get("user.get"), Types.VARCHAR);
+        return gson.fromJson(jsonDATA, UserDto.class);
     }
 
     @Override

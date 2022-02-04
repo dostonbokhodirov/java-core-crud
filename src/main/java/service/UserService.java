@@ -35,7 +35,12 @@ public class UserService extends AbstractService<UserRepository, UserValidator>
 
     @Override
     public ResponseEntity<Data<Void>> update(UserUpdateDto dto) {
-        return null;
+        try {
+            validator.validOnUpdate(dto);
+            return new ResponseEntity<>(new Data<>(repository.update(dto)));
+        } catch (CustomSQLException e){
+            throw new ApiRuntimeException(e.getFriendlyMessage(), e.getStatus());
+        }
     }
 
     @Override
