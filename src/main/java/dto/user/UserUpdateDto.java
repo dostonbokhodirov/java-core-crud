@@ -12,7 +12,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@Builder(builderMethodName = "childBuilder")
+//@Builder(builderMethodName = "childBuilder")
 @NoArgsConstructor
 public class UserUpdateDto extends GenericDto {
 

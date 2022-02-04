@@ -14,4 +14,6 @@ public class AuthUserRepository extends AbstractRepository {
         String jsonDATA = (String) callProcedure(property.get("auth.login"), Types.VARCHAR);
         return gson.fromJson(jsonDATA, UserDto.class);
     }
+
+
 }

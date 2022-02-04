@@ -9,6 +9,8 @@ import lombok.SneakyThrows;
 import repository.base.AbstractRepository;
 import repository.base.GenericCrudRepository;
 import repository.base.GenericRepository;
+import security.SecurityHolder;
+import settings.Types;
 
 import java.util.List;
 
@@ -20,12 +22,15 @@ public class UserRepository extends AbstractRepository
         GenericRepository<UserDto, Long> {
     @Override
     public Long create(UserCreateDto dto) {
-        return null;
+        String json = gson.toJson(dto);
+        prepareArguments(json, SecurityHolder.session.getId());
+        return (long) callProcedure(property.get("user.create"), java.sql.Types.BIGINT);
     }
 
     @Override
     public Boolean update(UserUpdateDto dto) {
-        return null;
+        prepareArguments(dto, sessionUserId());
+        return (Boolean) callProcedure(property.get("user.update"), Types.BOOLEAN);
     }
 
     @Override
@@ -45,4 +50,5 @@ public class UserRepository extends AbstractRepository
     public List<UserDto> getAll() {
         return null;
     }
+
 }
