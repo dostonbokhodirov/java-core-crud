@@ -50,7 +50,7 @@ public class UserService extends AbstractService<UserRepository, UserValidator>
         try {
             return new ResponseEntity<>(new Data<>(repository.delete(id)));
         } catch (CustomSQLException e){
-            throw new ApiRuntimeException(e.getMessage(), HttpStatus.HTTP_400);
+            throw new ApiRuntimeException(e.getMessage());
         }
     }
 
@@ -72,7 +72,7 @@ public class UserService extends AbstractService<UserRepository, UserValidator>
         try {
             return new ResponseEntity<>(new Data<>(repository.listOfUsers(id)));
         } catch (CustomSQLException e) {
-            throw new ApiRuntimeException(e.getMessage(), e.getStatus());
+            throw new ApiRuntimeException(e.getMessage());
         }
     }
 
@@ -81,7 +81,7 @@ public class UserService extends AbstractService<UserRepository, UserValidator>
         try {
             return new ResponseEntity<>(new Data<>(repository.block(id)));
         } catch (CustomSQLException e){
-            throw new ApiRuntimeException(e.getMessage(), HttpStatus.HTTP_400);
+            throw new ApiRuntimeException(e.getMessage());
         }
     }
 
@@ -89,7 +89,7 @@ public class UserService extends AbstractService<UserRepository, UserValidator>
         try {
             return new ResponseEntity<>(new Data<>(repository.unBlock(id)));
         } catch (CustomSQLException e){
-            throw new ApiRuntimeException(e.getMessage(), HttpStatus.HTTP_400);
+            throw new ApiRuntimeException(e.getMessage());
         }
     }
 }
