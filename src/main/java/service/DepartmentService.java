@@ -3,7 +3,6 @@ package service;
 import dto.department.DepartmentCreateDto;
 import dto.department.DepartmentDto;
 import dto.department.DepartmentUpdateDto;
-import enums.HttpStatus;
 import exceptions.ApiRuntimeException;
 import exceptions.CustomSQLException;
 import repository.DepartmentRepository;
@@ -33,27 +32,35 @@ public class DepartmentService extends AbstractService<DepartmentRepository, Dep
             validator.validOnCreate(dto);
             return new ResponseEntity<>(new Data<>(repository.create(dto)));
         } catch (CustomSQLException e) {
-            throw new ApiRuntimeException(e.getFriendlyMessage(), HttpStatus.HTTP_400);
+            throw new ApiRuntimeException(e.getMessage());
         }
     }
 
     @Override
     public ResponseEntity<Data<Boolean>> update(DepartmentUpdateDto dto) {
-        return null;
+        try {
+            validator.validOnUpdate(dto);
+            return new ResponseEntity<>(new Data<>(repository.update(dto)));
+        } catch (CustomSQLException e) {
+            throw new ApiRuntimeException(e.getMessage());
+        }
     }
 
     @Override
     public ResponseEntity<Data<Boolean>> delete(Long id) {
-        return null;
+        try {
+            return new ResponseEntity<>(new Data<>(repository.delete(id)));
+        } catch (CustomSQLException e) {
+            throw new ApiRuntimeException(e.getMessage());
+        }
     }
 
     @Override
     public ResponseEntity<Data<DepartmentDto>> get(Long id) {
         try {
-            DepartmentDto dto = repository.get(id);
-            return new ResponseEntity<>(new Data<>(dto));
+            return new ResponseEntity<>(new Data<>(repository.get(id)));
         } catch (CustomSQLException e) {
-            throw new ApiRuntimeException(e.getFriendlyMessage(), HttpStatus.HTTP_400);
+            throw new ApiRuntimeException(e.getMessage());
         }
     }
 
@@ -61,9 +68,25 @@ public class DepartmentService extends AbstractService<DepartmentRepository, Dep
     public ResponseEntity<Data<List<DepartmentDto>>> getAll() {
         try {
             List<DepartmentDto> dtoList = repository.getAll();
-            return new ResponseEntity<>(new Data<>(dtoList));
+            return new ResponseEntity<>(new Data<>(dtoList, dtoList.size()));
         } catch (CustomSQLException e) {
-            throw new ApiRuntimeException(e.getFriendlyMessage(), HttpStatus.HTTP_400);
+            throw new ApiRuntimeException(e.getMessage());
+        }
+    }
+
+    public ResponseEntity<Data<Boolean>> block(Long id) {
+        try {
+            return new ResponseEntity<>(new Data<>(repository.block(id)));
+        } catch (CustomSQLException e) {
+            throw new ApiRuntimeException(e.getMessage());
+        }
+    }
+
+    public ResponseEntity<Data<Boolean>> unblock(Long id) {
+        try {
+            return new ResponseEntity<>(new Data<>(repository.unblock(id)));
+        } catch (CustomSQLException e) {
+            throw new ApiRuntimeException(e.getMessage());
         }
     }
 }

@@ -38,6 +38,10 @@ run();
             case "5" -> authUserUI.login();
             case "6" -> userUI.getAll();
             case "7" -> userUI.logout();
+            case "11" -> departmentUI.get();
+            case "22" -> departmentUI.getAll();
+            case "33" -> departmentUI.create();
+            case "44" -> departmentUI.update();
 
         }
         run();
