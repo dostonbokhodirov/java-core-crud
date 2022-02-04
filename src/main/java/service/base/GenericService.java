@@ -12,7 +12,6 @@ import java.util.List;
  */
 
 /**
- *
  * @param <D> dto
  * @param <K> primary key
  */

@@ -20,7 +20,7 @@ public class DepartmentRepository extends AbstractRepository
         GenericRepository<DepartmentDto, Long> {
     @Override
     public Long create(DepartmentCreateDto dto) {
-        prepareArguments(dto, SecurityHolder.session.getId());
+        prepareArguments(dto, sessionUserId());
         return (Long) callProcedure(property.get("department.create"), Types.BIGINT);
     }
 
@@ -36,14 +36,14 @@ public class DepartmentRepository extends AbstractRepository
 
     @Override
     public DepartmentDto get(Long id) {
-        prepareArguments(id, SecurityHolder.session.getId());
+        prepareArguments(id, sessionUserId());
         String jsonData = (String) callProcedure(property.get("department.update"), Types.VARCHAR);
         return gson.fromJson(jsonData, DepartmentDto.class);
     }
 
     @Override
     public List<DepartmentDto> getAll() {
-        prepareArguments(SecurityHolder.session.getId());
+        prepareArguments(sessionUserId());
         String jsonData = (String) callProcedure(property.get("department.getAll"), Types.VARCHAR);
         return gson.fromJson(jsonData, new TypeToken<List<DepartmentDto>>() {
         }.getType());

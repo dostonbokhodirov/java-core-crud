@@ -1,7 +1,6 @@
 package repository.base;
 
 import dto.BaseGenericDto;
-import exceptions.CustomSQLException;
 
 import java.io.Serializable;
 import java.util.List;

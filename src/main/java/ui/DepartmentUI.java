@@ -39,6 +39,7 @@ public class DepartmentUI extends AbstractUI<DepartmentService> {
     }
 
     public void update() {
+        String id = Input.getStr("Enter department's id: ");
 
     }
 
