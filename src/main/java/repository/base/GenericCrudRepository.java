@@ -15,7 +15,7 @@ public interface GenericCrudRepository<
         K extends Serializable> extends GenericRepository<D, K> {
     K create(CD dto);
 
-    Void update(UD dto);
+    Boolean update(UD dto);
 
-    Void delete(K id);
+    Boolean delete(K id);
 }

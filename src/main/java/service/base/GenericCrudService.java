@@ -17,7 +17,7 @@ public interface GenericCrudService<
 
     ResponseEntity<Data<K>> create(CD dto);
 
-    ResponseEntity<Data<Void>> update(UD dto);
+    ResponseEntity<Data<Boolean>> update(UD dto);
 
-    ResponseEntity<Data<Void>> delete(K id);
+    ResponseEntity<Data<Boolean>> delete(K id);
 }

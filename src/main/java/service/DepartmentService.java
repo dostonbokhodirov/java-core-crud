@@ -3,6 +3,9 @@ package service;
 import dto.department.DepartmentCreateDto;
 import dto.department.DepartmentDto;
 import dto.department.DepartmentUpdateDto;
+import enums.HttpStatus;
+import exceptions.ApiRuntimeException;
+import exceptions.CustomSQLException;
 import repository.DepartmentRepository;
 import response.Data;
 import response.ResponseEntity;
@@ -26,26 +29,41 @@ public class DepartmentService extends AbstractService<DepartmentRepository, Dep
 
     @Override
     public ResponseEntity<Data<Long>> create(DepartmentCreateDto dto) {
+        try {
+            validator.validOnCreate(dto);
+            return new ResponseEntity<>(new Data<>(repository.create(dto)));
+        } catch (CustomSQLException e) {
+            throw new ApiRuntimeException(e.getFriendlyMessage(), HttpStatus.HTTP_400);
+        }
+    }
+
+    @Override
+    public ResponseEntity<Data<Boolean>> update(DepartmentUpdateDto dto) {
         return null;
     }
 
     @Override
-    public ResponseEntity<Data<Void>> update(DepartmentUpdateDto dto) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Data<Void>> delete(Long id) {
+    public ResponseEntity<Data<Boolean>> delete(Long id) {
         return null;
     }
 
     @Override
     public ResponseEntity<Data<DepartmentDto>> get(Long id) {
-        return null;
+        try {
+            DepartmentDto dto = repository.get(id);
+            return new ResponseEntity<>(new Data<>(dto));
+        } catch (CustomSQLException e) {
+            throw new ApiRuntimeException(e.getFriendlyMessage(), HttpStatus.HTTP_400);
+        }
     }
 
     @Override
     public ResponseEntity<Data<List<DepartmentDto>>> getAll() {
-        return null;
+        try {
+            List<DepartmentDto> dtoList = repository.getAll();
+            return new ResponseEntity<>(new Data<>(dtoList));
+        } catch (CustomSQLException e) {
+            throw new ApiRuntimeException(e.getFriendlyMessage(), HttpStatus.HTTP_400);
+        }
     }
 }

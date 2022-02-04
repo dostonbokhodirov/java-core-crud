@@ -24,12 +24,12 @@ public class UserRepository extends AbstractRepository
     }
 
     @Override
-    public Void update(UserUpdateDto dto) {
+    public Boolean update(UserUpdateDto dto) {
         return null;
     }
 
     @Override
-    public Void delete(Long id) {
+    public Boolean delete(Long id) {
         return null;
     }
 

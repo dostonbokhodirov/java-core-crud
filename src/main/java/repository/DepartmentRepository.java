@@ -1,11 +1,14 @@
 package repository;
 
+import com.google.gson.reflect.TypeToken;
 import dto.department.DepartmentCreateDto;
 import dto.department.DepartmentDto;
 import dto.department.DepartmentUpdateDto;
 import repository.base.AbstractRepository;
 import repository.base.GenericCrudRepository;
 import repository.base.GenericRepository;
+import security.SecurityHolder;
+import settings.Types;
 
 import java.util.List;
 
@@ -17,26 +20,32 @@ public class DepartmentRepository extends AbstractRepository
         GenericRepository<DepartmentDto, Long> {
     @Override
     public Long create(DepartmentCreateDto dto) {
+        prepareArguments(dto, SecurityHolder.session.getId());
+        return (Long) callProcedure(property.get("department.create"), Types.BIGINT);
+    }
+
+    @Override
+    public Boolean update(DepartmentUpdateDto dto) {
         return null;
     }
 
     @Override
-    public Void update(DepartmentUpdateDto dto) {
-        return null;
-    }
-
-    @Override
-    public Void delete(Long id) {
+    public Boolean delete(Long id) {
         return null;
     }
 
     @Override
     public DepartmentDto get(Long id) {
-        return null;
+        prepareArguments(id, SecurityHolder.session.getId());
+        String jsonData = (String) callProcedure(property.get("department.update"), Types.VARCHAR);
+        return gson.fromJson(jsonData, DepartmentDto.class);
     }
 
     @Override
     public List<DepartmentDto> getAll() {
-        return null;
+        prepareArguments(SecurityHolder.session.getId());
+        String jsonData = (String) callProcedure(property.get("department.getAll"), Types.VARCHAR);
+        return gson.fromJson(jsonData, new TypeToken<List<DepartmentDto>>() {
+        }.getType());
     }
 }
