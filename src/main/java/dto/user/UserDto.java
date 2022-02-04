@@ -24,9 +24,6 @@ public class UserDto extends GenericDto {
 
     private Integer status;
 
-    @SerializedName("is_deleted")
-    private Boolean isDeleted = false;
-
     @SerializedName("depart_id")
     private Long departId;
 

@@ -14,6 +14,7 @@ import uz.jl.utils.Color;
 import uz.jl.utils.Input;
 import uz.jl.utils.Print;
 
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -24,7 +25,6 @@ public class UserUI extends AbstractUI<UserService> {
     public UserUI(UserService service) {
         super(service);
     }
-
 
 
     public void get() {
@@ -64,8 +64,12 @@ public class UserUI extends AbstractUI<UserService> {
             dto.setDepartId(Long.parseLong(depId));
         }
 
-        ResponseEntity<Data<Boolean>> response = service.update(dto);
-        showResponse(Color.GREEN, response.getBody());
+        try{
+            ResponseEntity<Data<Boolean>> response = service.update(dto);
+            showResponse(Color.GREEN, response.getBody());
+        }catch (ApiRuntimeException e){
+            showResponse(e.getMessage());
+        }
     }
 
     public void create() {
@@ -92,7 +96,13 @@ public class UserUI extends AbstractUI<UserService> {
     }
 
     public void delete() {
-
+        String id = Input.getStr("Enter user id ->");
+        try {
+            ResponseEntity<Data<Boolean>> response = service.delete(Long.parseLong(id));
+            showResponse(Color.GREEN, response.getBody());
+        } catch (ApiRuntimeException e){
+            showResponse(e.getMessage());
+        }
     }
 
     public void logout() {
@@ -101,6 +111,32 @@ public class UserUI extends AbstractUI<UserService> {
     }
 
     public void getAll() {
+        String id = Input.getStr("Department id -> ");
+        try {
+            ResponseEntity<Data<List<UserDto>>> response = service.listOfMembers(Long.parseLong(id));
+            showResponse(Color.GREEN, response.getBody());
+        } catch (ApiRuntimeException e){
+            showResponse(e.getMessage());
+        }
+    }
 
+    public void blockUser() {
+        String id = Input.getStr("Enter user id ->");
+        try {
+            ResponseEntity<Data<Boolean>> response = service.blockUser(Long.parseLong(id));
+            showResponse(Color.GREEN, response.getBody());
+        } catch (ApiRuntimeException e){
+            showResponse(e.getMessage());
+        }
+    }
+
+    public void unBlockUser() {
+        String id = Input.getStr("Enter user id ->");
+        try {
+            ResponseEntity<Data<Boolean>> response = service.unBlockUser(Long.parseLong(id));
+            showResponse(Color.GREEN, response.getBody());
+        } catch (ApiRuntimeException e){
+            showResponse(e.getMessage());
+        }
     }
 }

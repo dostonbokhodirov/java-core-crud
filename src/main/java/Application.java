@@ -11,15 +11,12 @@ import uz.jl.utils.Print;
 public class Application {
     private static final UserUI userUI = ApplicationContextHolder.getBean(UserUI.class);
     private static final AuthUserUI authUserUI = ApplicationContextHolder.getBean(AuthUserUI.class);
-    private static final DepartmentUI departmentUI = ApplicationContextHolder.getBean(DepartmentUI.class);
 
     public static void main(String[] args) {
-
-run();
-
+        run();
     }
 
-    public static void run(){
+    public static void run() {
 
         Print.println("1. User Get");
         Print.println("2. User Delete");
@@ -27,10 +24,14 @@ run();
         Print.println("4. User Update");
         Print.println("5. LOGIN");
         Print.println("6. Users list");
+        Print.println("7. LOG OUT");
+        Print.println("8. Block user");
+        Print.println("9. Unbock user");
+
 
 
         String choice = Input.getStr("Choose -> ");
-        switch (choice){
+        switch (choice) {
             case "1" -> userUI.get();
             case "2" -> userUI.delete();
             case "3" -> userUI.create();
@@ -38,7 +39,8 @@ run();
             case "5" -> authUserUI.login();
             case "6" -> userUI.getAll();
             case "7" -> userUI.logout();
-
+            case "8" -> userUI.blockUser();
+            case "9" -> userUI.unBlockUser();
         }
         run();
     }

@@ -1,10 +1,9 @@
 package repository;
 
+import com.google.gson.reflect.TypeToken;
 import dto.user.UserCreateDto;
 import dto.user.UserDto;
 import dto.user.UserUpdateDto;
-import enums.HttpStatus;
-import exceptions.CustomSQLException;
 import lombok.SneakyThrows;
 import repository.base.AbstractRepository;
 import repository.base.GenericCrudRepository;
@@ -29,13 +28,14 @@ public class UserRepository extends AbstractRepository
 
     @Override
     public Boolean update(UserUpdateDto dto) {
-        prepareArguments(dto, sessionUserId());
+        prepareArguments(gson.toJson(dto), sessionUserId());
         return (Boolean) callProcedure(property.get("user.update"), Types.BOOLEAN);
     }
 
     @Override
     public Boolean delete(Long id) {
-        return null;
+        prepareArguments(id, sessionUserId());
+        return (Boolean) callProcedure(property.get("user.delete"), Types.BOOLEAN);
     }
 
     @SneakyThrows
@@ -51,4 +51,19 @@ public class UserRepository extends AbstractRepository
         return null;
     }
 
+    public List<UserDto> listOfUsers(Long id) {
+        prepareArguments(id, sessionUserId());
+        String jsonDATA = (String) callProcedure(property.get("user.getAll"), Types.VARCHAR);
+        return gson.fromJson(jsonDATA, new TypeToken<List<UserDto>>(){}.getType());
+    }
+
+    public Boolean block(Long id) {
+        prepareArguments(id, sessionUserId());
+        return (Boolean) callProcedure(property.get("user.block"), Types.BOOLEAN);
+    }
+
+    public Boolean unBlock(Long id) {
+        prepareArguments(id, sessionUserId());
+        return (Boolean) callProcedure(property.get("user.unblock"), Types.BOOLEAN);
+    }
 }
