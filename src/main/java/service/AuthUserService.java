@@ -28,4 +28,6 @@ public class AuthUserService extends AbstractService<AuthUserRepository, UserVal
             throw new ApiRuntimeException(e.getFriendlyMessage(), HttpStatus.HTTP_400);
         }
     }
+
+
 }
