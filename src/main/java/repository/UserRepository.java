@@ -3,13 +3,13 @@ package repository;
 import dto.user.UserCreateDto;
 import dto.user.UserDto;
 import dto.user.UserUpdateDto;
+import enums.HttpStatus;
+import exceptions.CustomSQLException;
 import lombok.SneakyThrows;
 import repository.base.AbstractRepository;
 import repository.base.GenericCrudRepository;
 import repository.base.GenericRepository;
-import settings.Types;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -24,14 +24,12 @@ public class UserRepository extends AbstractRepository
     }
 
     @Override
-    public Void update(UserUpdateDto dto) {
-        prepareArguments(dto);
-        Boolean jsonData = (Boolean) callProcedure(property.get("user.update"), Types.BOOLEAN);
+    public Boolean update(UserUpdateDto dto) {
         return null;
     }
 
     @Override
-    public Void delete(Long id) {
+    public Boolean delete(Long id) {
         return null;
     }
 

@@ -1,14 +1,18 @@
 import configs.ApplicationContextHolder;
+import ui.AuthUserUI;
+import ui.DepartmentUI;
 import ui.UserUI;
-import uz.jl.utils.Input;
-import uz.jl.utils.Print;
 
 /**
  * @author Doston Bokhodirov, Fri 5:15 PM. 2/4/2022
  */
 public class Application {
     private static final UserUI userUI = ApplicationContextHolder.getBean(UserUI.class);
+    private static final AuthUserUI authUserUI = ApplicationContextHolder.getBean(AuthUserUI.class);
+    private static final DepartmentUI departmentUI = ApplicationContextHolder.getBean(DepartmentUI.class);
+
     public static void main(String[] args) {
+
 
         Print.println("1. User Get");
         Print.println("2. User Delete");

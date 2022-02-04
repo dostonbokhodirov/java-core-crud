@@ -34,6 +34,8 @@ public class UserService extends AbstractService<UserRepository, UserValidator>
     }
 
     @Override
+    public ResponseEntity<Data<Boolean>> update(UserUpdateDto dto) {
+        return null;
     public ResponseEntity<Data<Void>> update(UserUpdateDto dto) {
         try {
             validator.validOnUpdate(dto);
@@ -44,7 +46,7 @@ public class UserService extends AbstractService<UserRepository, UserValidator>
     }
 
     @Override
-    public ResponseEntity<Data<Void>> delete(Long id) {
+    public ResponseEntity<Data<Boolean>> delete(Long id) {
         return null;
     }
 

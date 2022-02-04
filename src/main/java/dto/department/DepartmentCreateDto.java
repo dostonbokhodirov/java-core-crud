@@ -11,7 +11,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@Builder(builderMethodName = "childBuilder")
+@Builder
 public class DepartmentCreateDto implements BaseGenericDto {
 
     private String name;
