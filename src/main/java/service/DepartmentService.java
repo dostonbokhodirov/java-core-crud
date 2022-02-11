@@ -10,7 +10,6 @@ import response.Data;
 import response.ResponseEntity;
 import service.base.AbstractService;
 import service.base.GenericCrudService;
-import service.base.GenericService;
 import validator.DepartmentValidator;
 
 import java.util.List;
@@ -19,8 +18,7 @@ import java.util.List;
  * @author Doston Bokhodirov, Fri 3:51 PM. 2/4/2022
  */
 public class DepartmentService extends AbstractService<DepartmentRepository, DepartmentValidator>
-        implements GenericCrudService<DepartmentCreateDto, DepartmentUpdateDto, Long>,
-        GenericService<DepartmentDto, Long> {
+        implements GenericCrudService<DepartmentDto, DepartmentCreateDto, DepartmentUpdateDto, Long> {
 
     public DepartmentService(DepartmentRepository repository, DepartmentValidator validator) {
         super(repository, validator);
@@ -54,6 +52,8 @@ public class DepartmentService extends AbstractService<DepartmentRepository, Dep
             throw new ApiRuntimeException(e.getMessage());
         }
     }
+
+
 
     @Override
     public ResponseEntity<Data<DepartmentDto>> get(Long id) {

@@ -10,7 +10,6 @@ import response.Data;
 import response.ResponseEntity;
 import service.base.AbstractService;
 import service.base.GenericCrudService;
-import service.base.GenericService;
 import validator.UserValidator;
 
 import java.util.List;
@@ -19,8 +18,7 @@ import java.util.List;
  * @author Doston Bokhodirov, Fri 3:47 PM. 2/4/2022
  */
 public class UserService extends AbstractService<UserRepository, UserValidator>
-        implements GenericCrudService<UserCreateDto, UserUpdateDto, Long>,
-        GenericService<UserDto, Long> {
+        implements GenericCrudService<UserDto, UserCreateDto, UserUpdateDto, Long> {
 
     public UserService(UserRepository repository, UserValidator validator) {
         super(repository, validator);
@@ -49,7 +47,7 @@ public class UserService extends AbstractService<UserRepository, UserValidator>
     public ResponseEntity<Data<Boolean>> delete(Long id) {
         try {
             return new ResponseEntity<>(new Data<>(repository.delete(id)));
-        } catch (CustomSQLException e){
+        } catch (CustomSQLException e) {
             throw new ApiRuntimeException(e.getMessage());
         }
     }
@@ -80,7 +78,7 @@ public class UserService extends AbstractService<UserRepository, UserValidator>
     public ResponseEntity<Data<Boolean>> blockUser(Long id) {
         try {
             return new ResponseEntity<>(new Data<>(repository.block(id)));
-        } catch (CustomSQLException e){
+        } catch (CustomSQLException e) {
             throw new ApiRuntimeException(e.getMessage());
         }
     }
@@ -88,7 +86,7 @@ public class UserService extends AbstractService<UserRepository, UserValidator>
     public ResponseEntity<Data<Boolean>> unBlockUser(Long id) {
         try {
             return new ResponseEntity<>(new Data<>(repository.unBlock(id)));
-        } catch (CustomSQLException e){
+        } catch (CustomSQLException e) {
             throw new ApiRuntimeException(e.getMessage());
         }
     }

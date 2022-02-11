@@ -7,9 +7,7 @@ import dto.user.UserUpdateDto;
 import lombok.SneakyThrows;
 import repository.base.AbstractRepository;
 import repository.base.GenericCrudRepository;
-import repository.base.GenericRepository;
 import security.SecurityHolder;
-import settings.Types;
 
 import java.util.List;
 
@@ -17,32 +15,30 @@ import java.util.List;
  * @author Doston Bokhodirov, Fri 11:27 AM. 2/4/2022
  */
 public class UserRepository extends AbstractRepository
-        implements GenericCrudRepository<UserDto, UserCreateDto, UserUpdateDto, Long>,
-        GenericRepository<UserDto, Long> {
+        implements GenericCrudRepository<UserDto, UserCreateDto, UserUpdateDto, Long> {
     @Override
     public Long create(UserCreateDto dto) {
-        String json = gson.toJson(dto);
-        prepareArguments(json, SecurityHolder.session.getId());
-        return (long) callProcedure(property.get("user.create"), java.sql.Types.BIGINT);
+        prepareArguments(gson.toJson(dto), sessionUserId());
+        return callProcedure(property.get("user.create"), Long.class);
     }
 
     @Override
     public Boolean update(UserUpdateDto dto) {
         prepareArguments(gson.toJson(dto), sessionUserId());
-        return (Boolean) callProcedure(property.get("user.update"), Types.BOOLEAN);
+        return callProcedure(property.get("user.update"), Boolean.class);
     }
 
     @Override
     public Boolean delete(Long id) {
         prepareArguments(id, sessionUserId());
-        return (Boolean) callProcedure(property.get("user.delete"), Types.BOOLEAN);
+        return callProcedure(property.get("user.delete"), Boolean.class);
     }
 
     @SneakyThrows
     @Override
     public UserDto get(Long id) {
         prepareArguments(id);
-        String jsonDATA = (String) callProcedure(property.get("user.get"), Types.VARCHAR);
+        String jsonDATA = callProcedure(property.get("user.get"), String.class);
         return gson.fromJson(jsonDATA, UserDto.class);
     }
 
@@ -53,17 +49,18 @@ public class UserRepository extends AbstractRepository
 
     public List<UserDto> listOfUsers(Long id) {
         prepareArguments(id, sessionUserId());
-        String jsonDATA = (String) callProcedure(property.get("user.getAll"), Types.VARCHAR);
-        return gson.fromJson(jsonDATA, new TypeToken<List<UserDto>>(){}.getType());
+        String jsonDATA = callProcedure(property.get("user.getAll"), String.class);
+        return gson.fromJson(jsonDATA, new TypeToken<List<UserDto>>() {
+        }.getType());
     }
 
     public Boolean block(Long id) {
         prepareArguments(id, sessionUserId());
-        return (Boolean) callProcedure(property.get("user.block"), Types.BOOLEAN);
+        return callProcedure(property.get("user.block"), Boolean.class);
     }
 
     public Boolean unBlock(Long id) {
         prepareArguments(id, sessionUserId());
-        return (Boolean) callProcedure(property.get("user.unblock"), Types.BOOLEAN);
+        return callProcedure(property.get("user.unblock"), Boolean.class);
     }
 }

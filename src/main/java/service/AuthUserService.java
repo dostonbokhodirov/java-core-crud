@@ -15,6 +15,7 @@ import validator.UserValidator;
  * @author Doston Bokhodirov, Fri 3:53 PM. 2/4/2022
  */
 public class AuthUserService extends AbstractService<AuthUserRepository, UserValidator> {
+
     public AuthUserService(AuthUserRepository repository, UserValidator validator) {
         super(repository, validator);
     }

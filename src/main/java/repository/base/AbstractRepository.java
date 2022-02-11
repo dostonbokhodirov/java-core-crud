@@ -29,7 +29,6 @@ public abstract class AbstractRepository implements BaseGenericRepository {
         return SecurityHolder.session.getId();
     }
 
-    @SneakyThrows
     protected Serializable callProcedure(String query, int outType) {
         try {
             CallableStatement statement = connection.prepareCall(query);
