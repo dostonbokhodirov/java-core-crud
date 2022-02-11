@@ -29,8 +29,6 @@ public class Application {
         Print.println("8. Block user");
         Print.println("9. Unbock user");
 
-
-
         String choice = Input.getStr("Choose -> ");
         switch (choice) {
             case "1" -> userUI.get();
@@ -46,7 +44,6 @@ public class Application {
             case "22" -> departmentUI.getAll();
             case "33" -> departmentUI.create();
             case "44" -> departmentUI.update();
-
         }
         run();
     }
